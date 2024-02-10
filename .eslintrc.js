@@ -29,6 +29,14 @@ module.exports = {
 
         'react/prop-types': 'off',
 
+        'react-hooks/rules-of-hooks': 'error',
+        'react-hooks/exhaustive-deps': [
+            'warn',
+            {
+                additionalHooks: 'useRecoilCallback',
+            },
+        ],
+
         'import/newline-after-import': 'warn',
 
         'import/no-extraneous-dependencies': 'off',
@@ -52,4 +60,4 @@ module.exports = {
             },
         ],
     },
-}
+};

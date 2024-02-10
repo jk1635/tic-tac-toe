@@ -21,7 +21,7 @@ function App() {
                     <Route path="/board" element={<BoardPage />} />
                     <Route path="/history" element={<HistoryPage />} />
                 </Routes>
-            </BrowserRouter>{' '}
+            </BrowserRouter>
         </ThemeProvider>
     );
 }
