@@ -27,8 +27,8 @@ const SettingPage = () => {
                 <select>
                     <option>X</option>
                     <option>O</option>
-                    <option>세모</option>
-                    <option>체크</option>
+                    <option>△</option>
+                    <option>□</option>
                 </select>
             </div>
             <div>
@@ -36,8 +36,8 @@ const SettingPage = () => {
                 <select>
                     <option>O</option>
                     <option>X</option>
-                    <option>세모</option>
-                    <option>체크</option>
+                    <option>△</option>
+                    <option>□</option>
                 </select>
             </div>
             <div>
@@ -46,6 +46,7 @@ const SettingPage = () => {
                     <option>red</option>
                     <option>yellow</option>
                     <option>blue</option>
+                    <option>green</option>
                 </select>
             </div>
             <div>
