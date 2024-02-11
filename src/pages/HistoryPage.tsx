@@ -16,7 +16,7 @@ const HistoryPage = () => {
                         결과:
                         {gameRecord.isDraw
                             ? '무승부'
-                            : `승리: ${gameRecord.players.find(p => p.id === gameRecord.winner)?.mark || ''}`}
+                            : `승리 ${gameRecord.players.find(p => p.id === gameRecord.winner)?.mark || ''}`}
                     </p>
                     <h4>최종 보드 상태</h4>
                     <table>

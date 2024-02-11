@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 
 import useInitializeBoard from 'hooks/useInitializeBoard';
@@ -90,7 +91,8 @@ const PlayAction = () => {
                 무르기
             </button>
             <button onClick={handleResetGame}>리셋</button>
-            <button onClick={handleSaveHistory}>기록하기</button>
+            <button onClick={handleSaveHistory}>저장</button>
+            <Link to="/history">저장된 기록 보기</Link>
         </div>
     );
 };
