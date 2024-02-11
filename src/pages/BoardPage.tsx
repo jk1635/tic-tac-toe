@@ -1,28 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
+import { useRecoilState } from 'recoil';
 
-import { Board, GameSettings, GameState, Move, PlayerId } from '../types';
+import { boardState, gameSettingsState, gameStatusState } from '../stores/atoms';
+import { Board, Move, PlayerId } from '../types';
 
 const PLAYER_1: PlayerId = 1;
 const PLAYER_2: PlayerId = 2;
 
 const BoardPage: React.FC = () => {
-    const [gameSettings, setGameSettings] = useState<GameSettings>({
-        boardSize: [3, 3],
-        winCondition: 3,
-        players: [
-            { id: 1, mark: 'X', color: 'blue', backSteps: 3 },
-            { id: 2, mark: 'O', color: 'red', backSteps: 3 },
-        ],
-        startingPlayer: '랜덤',
-    });
-
-    const [gameState, setGameState] = useState<GameState>({
-        currentTurn: 1,
-        moves: [],
-        status: 'inProgress',
-    });
-
-    const [board, setBoard] = useState<Board>([]);
+    const [gameSettings, setGameSettings] = useRecoilState(gameSettingsState);
+    const [gameStatus, setGameStatus] = useRecoilState(gameStatusState);
+    const [board, setBoard] = useRecoilState(boardState);
 
     useEffect(() => {
         initializeGame();
@@ -53,7 +41,7 @@ const BoardPage: React.FC = () => {
             players: resetPlayers,
         }));
 
-        setGameState({
+        setGameStatus({
             currentTurn: startingPlayerId,
             moves: [],
             status: 'inProgress',
@@ -165,48 +153,48 @@ const BoardPage: React.FC = () => {
     };
 
     const handleCellClick = (row: number, col: number): void => {
-        if (board[row][col].playerId || gameState.status !== 'inProgress') {
+        if (board[row][col].playerId || gameStatus.status !== 'inProgress') {
             return;
         }
 
         const newMove: Move = {
-            playerId: gameState.currentTurn,
+            playerId: gameStatus.currentTurn,
             position: [row, col],
-            moveNumber: gameState.moves.length + 1,
+            moveNumber: gameStatus.moves.length + 1,
         };
 
-        const updatedBoard = updateBoard(board, row, col, gameState.currentTurn);
+        const updatedBoard = updateBoard(board, row, col, gameStatus.currentTurn);
 
         setBoard(updatedBoard);
-        setGameState(prevState => ({
-            ...prevState,
-            moves: [...prevState.moves, newMove],
-            currentTurn: prevState.currentTurn === PLAYER_1 ? PLAYER_2 : PLAYER_1,
+        setGameStatus(prev => ({
+            ...prev,
+            moves: [...prev.moves, newMove],
+            currentTurn: prev.currentTurn === PLAYER_1 ? PLAYER_2 : PLAYER_1,
         }));
 
-        if (checkWin(updatedBoard, gameState.currentTurn, gameSettings.winCondition)) {
-            setGameState(prevState => ({
-                ...prevState,
+        if (checkWin(updatedBoard, gameStatus.currentTurn, gameSettings.winCondition)) {
+            setGameStatus(prev => ({
+                ...prev,
                 status: 'win',
-                winner: gameState.currentTurn,
+                winner: gameStatus.currentTurn,
             }));
         } else if (checkDraw(updatedBoard)) {
-            setGameState(prevState => ({
-                ...prevState,
+            setGameStatus(prev => ({
+                ...prev,
                 status: 'draw',
             }));
         }
     };
 
-    const lastMove = gameState.moves[gameState.moves.length - 1];
+    const lastMove = gameStatus.moves[gameStatus.moves.length - 1];
     const lastPlayerIndex = lastMove ? gameSettings.players.findIndex(player => player.id === lastMove.playerId) : -1;
     const isBackStepsDisabled =
         lastPlayerIndex === -1 ||
         gameSettings.players[lastPlayerIndex].backSteps <= 0 ||
-        gameState.status !== 'inProgress';
+        gameStatus.status !== 'inProgress';
 
     const handleBackSteps = () => {
-        if (gameState.moves.length > 0 && gameState.status === 'inProgress') {
+        if (gameStatus.moves.length > 0 && gameStatus.status === 'inProgress') {
             const previousBoard = board.map((row, rowIndex) =>
                 row.map((cell, cellIndex) => {
                     if (rowIndex === lastMove.position[0] && cellIndex === lastMove.position[1]) {
@@ -223,11 +211,11 @@ const BoardPage: React.FC = () => {
                 return player;
             });
 
-            const updatedMoves = gameState.moves.slice(0, -1);
+            const updatedMoves = gameStatus.moves.slice(0, -1);
 
             setBoard(previousBoard);
-            setGameState(prevState => ({
-                ...prevState,
+            setGameStatus(prev => ({
+                ...prev,
                 moves: updatedMoves,
                 currentTurn: lastMove.playerId,
             }));
@@ -264,14 +252,14 @@ const BoardPage: React.FC = () => {
             </div>
 
             <div>
-                {gameState.status === 'inProgress' && (
+                {gameStatus.status === 'inProgress' && (
                     <span>
-                        다음 턴: {gameSettings.players.find(player => player.id === gameState.currentTurn)?.mark}
+                        다음 턴: {gameSettings.players.find(player => player.id === gameStatus.currentTurn)?.mark}
                     </span>
                 )}
-                {gameState.status === 'draw' && <span>DRAW</span>}
-                {gameState.status === 'win' && (
-                    <span>Player {gameSettings.players.find(player => player.id === gameState.winner)?.mark} Win</span>
+                {gameStatus.status === 'draw' && <span>DRAW</span>}
+                {gameStatus.status === 'win' && (
+                    <span>Player {gameSettings.players.find(player => player.id === gameStatus.winner)?.mark} Win</span>
                 )}
             </div>
 

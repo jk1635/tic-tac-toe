@@ -29,11 +29,11 @@ interface Move {
     moveNumber: number;
 }
 
-interface GameState {
+interface GameStatus {
     currentTurn: PlayerId;
     moves: Move[];
     status: 'inProgress' | 'win' | 'draw';
     winner?: PlayerId | null;
 }
 
-export type { PlayerColor, StartingPlayer, PlayerId, Player, GameSettings, Board, Move, GameState };
+export type { PlayerColor, StartingPlayer, PlayerId, Player, GameSettings, Board, Move, GameStatus };
