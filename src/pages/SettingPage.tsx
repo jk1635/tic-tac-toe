@@ -135,7 +135,7 @@ const SettingPage = () => {
             <Select
                 label="스타팅 멤버"
                 id="player2Color"
-                value={gameSettings.startingPlayer[0]}
+                value={gameSettings.startingPlayer}
                 onChange={handleStartingPlayerChange}
                 options={startingPlayerOptions.map(option => ({ value: option.value, label: option.label }))}
             />

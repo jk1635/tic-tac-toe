@@ -13,7 +13,7 @@ const playerMarkOptions = [
 const playerColorOptions = [
     { value: 'blue', label: '파랑' },
     { value: 'red', label: '빨강' },
-    { value: 'yellow', label: '노랑' },
+    { value: 'orange', label: '노랑' },
     { value: 'green', label: '초록' },
 ];
 
