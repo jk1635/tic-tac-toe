@@ -1,6 +1,6 @@
 type PlayerMark = 'X' | 'O' | '△' | '□';
 type PlayerColor = 'red' | 'yellow' | 'blue' | 'green';
-type StartingPlayer = '랜덤' | 'Player 1' | 'Player 2';
+type StartingPlayer = 'random' | 'Player 1' | 'Player 2';
 type PlayerId = 1 | 2;
 
 interface Player {
@@ -33,7 +33,26 @@ interface GameStatus {
     currentTurn: PlayerId;
     moves: Move[];
     status: 'inProgress' | 'win' | 'draw';
-    winner?: PlayerId | null;
+    winner: PlayerId | null;
 }
 
-export type { PlayerColor, StartingPlayer, PlayerId, Player, GameSettings, Board, Move, GameStatus };
+interface GameHistory {
+    finalBoard: Board;
+    winner: PlayerId | null;
+    isDraw: boolean;
+    moves: Move[];
+    players: Player[];
+}
+
+export type {
+    PlayerMark,
+    PlayerColor,
+    StartingPlayer,
+    PlayerId,
+    GameHistory,
+    Player,
+    GameSettings,
+    Board,
+    Move,
+    GameStatus,
+};
