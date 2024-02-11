@@ -2,6 +2,9 @@ import React, { useEffect, useState } from 'react';
 
 import { Board, GameSettings, GameState, Move, PlayerId } from '../types';
 
+const PLAYER_1: PlayerId = 1;
+const PLAYER_2: PlayerId = 2;
+
 const BoardPage: React.FC = () => {
     const [gameSettings, setGameSettings] = useState<GameSettings>({
         boardSize: [3, 3],
@@ -35,9 +38,9 @@ const BoardPage: React.FC = () => {
 
         let startingPlayerId: PlayerId;
         if (gameSettings.startingPlayer === '랜덤') {
-            startingPlayerId = Math.random() < 0.5 ? 1 : 2;
+            startingPlayerId = Math.random() < 0.5 ? PLAYER_1 : PLAYER_2;
         } else {
-            startingPlayerId = gameSettings.startingPlayer === 'Player 1' ? 1 : 2;
+            startingPlayerId = gameSettings.startingPlayer === 'Player 1' ? PLAYER_1 : PLAYER_2;
         }
 
         const resetPlayers = gameSettings.players.map(player => ({
@@ -178,7 +181,7 @@ const BoardPage: React.FC = () => {
         setGameState(prevState => ({
             ...prevState,
             moves: [...prevState.moves, newMove],
-            currentTurn: prevState.currentTurn === 1 ? 2 : 1,
+            currentTurn: prevState.currentTurn === PLAYER_1 ? PLAYER_2 : PLAYER_1,
         }));
 
         if (checkWin(updatedBoard, gameState.currentTurn, gameSettings.winCondition)) {
