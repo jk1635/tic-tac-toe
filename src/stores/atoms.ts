@@ -1,6 +1,6 @@
 import { atom } from 'recoil';
 
-import { Board, GameSettings, GameStatus } from '../types';
+import { Board, GameHistory, GameSettings, GameStatus } from 'types';
 
 export const gameSettingsState = atom<GameSettings>({
     key: 'gameSettingsState',
@@ -11,7 +11,7 @@ export const gameSettingsState = atom<GameSettings>({
             { id: 1, mark: 'X', color: 'blue', backSteps: 3 },
             { id: 2, mark: 'O', color: 'red', backSteps: 3 },
         ],
-        startingPlayer: '랜덤',
+        startingPlayer: 'random',
     },
 });
 
@@ -21,10 +21,16 @@ export const gameStatusState = atom<GameStatus>({
         currentTurn: 1,
         moves: [],
         status: 'inProgress',
+        winner: null,
     },
 });
 
 export const boardState = atom<Board>({
     key: 'boardState',
+    default: [],
+});
+
+export const historyState = atom<GameHistory[]>({
+    key: 'historyState',
     default: [],
 });
