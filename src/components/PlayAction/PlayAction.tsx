@@ -92,7 +92,8 @@ const PlayAction = () => {
             </button>
             <button onClick={handleResetGame}>리셋</button>
             <button onClick={handleSaveHistory}>저장</button>
-            <Link to="/history">저장된 기록 보기</Link>
+            <Link to="/setting">재설정</Link>
+            <Link to="/history">저장된 게임</Link>
         </div>
     );
 };

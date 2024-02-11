@@ -5,7 +5,7 @@ const PLAYER_2: PlayerId = 2;
 
 const playerMarkOptions = [
     { value: 'X', label: '엑스' },
-    { value: 'O', label: '원형' },
+    { value: 'O', label: '동그라미' },
     { value: '△', label: '세모' },
     { value: '□', label: '네모' },
 ];
