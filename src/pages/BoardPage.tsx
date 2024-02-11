@@ -20,7 +20,6 @@ const BoardPage: React.FC = () => {
     });
 
     const [board, setBoard] = useState<Board>([]);
-    // console.log(board);
 
     useEffect(() => {
         initializeGame();
@@ -40,6 +39,16 @@ const BoardPage: React.FC = () => {
         } else {
             startingPlayerId = gameSettings.startingPlayer === 'Player 1' ? 1 : 2;
         }
+
+        const resetPlayers = gameSettings.players.map(player => ({
+            ...player,
+            backSteps: 3,
+        }));
+
+        setGameSettings(prev => ({
+            ...prev,
+            players: resetPlayers,
+        }));
 
         setGameState({
             currentTurn: startingPlayerId,
@@ -186,6 +195,46 @@ const BoardPage: React.FC = () => {
         }
     };
 
+    const lastMove = gameState.moves[gameState.moves.length - 1];
+    const lastPlayerIndex = lastMove ? gameSettings.players.findIndex(player => player.id === lastMove.playerId) : -1;
+    const isBackStepsDisabled =
+        lastPlayerIndex === -1 ||
+        gameSettings.players[lastPlayerIndex].backSteps <= 0 ||
+        gameState.status !== 'inProgress';
+
+    const handleBackSteps = () => {
+        if (gameState.moves.length > 0 && gameState.status === 'inProgress') {
+            const previousBoard = board.map((row, rowIndex) =>
+                row.map((cell, cellIndex) => {
+                    if (rowIndex === lastMove.position[0] && cellIndex === lastMove.position[1]) {
+                        return { ...cell, playerId: null };
+                    }
+                    return cell;
+                })
+            );
+
+            const updatedPlayers = gameSettings.players.map(player => {
+                if (player.id === lastMove.playerId) {
+                    return { ...player, backSteps: player.backSteps > 0 ? player.backSteps - 1 : 0 };
+                }
+                return player;
+            });
+
+            const updatedMoves = gameState.moves.slice(0, -1);
+
+            setBoard(previousBoard);
+            setGameState(prevState => ({
+                ...prevState,
+                moves: updatedMoves,
+                currentTurn: lastMove.playerId,
+            }));
+            setGameSettings(prevSettings => ({
+                ...prevSettings,
+                players: updatedPlayers,
+            }));
+        }
+    };
+
     const resetGame = () => {
         initializeGame();
     };
@@ -251,11 +300,16 @@ const BoardPage: React.FC = () => {
             </div>
 
             <div>
-                <div>
-                    <span>X 무르기 남은 횟수: 3회</span>
-                    <span>O 무르기 남은 횟수: 3회</span>
-                </div>
-                <button>무르기</button>
+                {gameSettings.players.map((player, index) => (
+                    <div key={index}>
+                        <span>
+                            {player.mark} 무르기 남은 횟수: {player.backSteps}회
+                        </span>
+                    </div>
+                ))}
+                <button onClick={handleBackSteps} disabled={isBackStepsDisabled}>
+                    무르기
+                </button>
                 <button onClick={resetGame}>리셋</button>
             </div>
         </div>
