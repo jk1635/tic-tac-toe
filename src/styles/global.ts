@@ -1,6 +1,11 @@
 import { css } from '@emotion/react';
 
 const global = css`
+    :root {
+        --min-width: 320px;
+        --max-width: 640px;
+    }
+
     * {
         box-sizing: border-box;
     }
@@ -11,6 +16,7 @@ const global = css`
 
     body {
         font-family: Arial, sans-serif;
+        overflow-x: hidden;
     }
 
     html,

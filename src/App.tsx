@@ -10,18 +10,22 @@ import global from 'styles/global';
 import reset from 'styles/reset';
 import theme from 'styles/theme';
 
+import { Layout } from './components/Layout';
+
 function App() {
     return (
         <ThemeProvider theme={theme}>
             <Global styles={[reset, global]} />
-            <BrowserRouter>
-                <Routes>
-                    <Route path="/" element={<HomePage />} />
-                    <Route path="/setting" element={<SettingPage />} />
-                    <Route path="/board" element={<BoardPage />} />
-                    <Route path="/history" element={<HistoryPage />} />
-                </Routes>
-            </BrowserRouter>
+            <Layout>
+                <BrowserRouter>
+                    <Routes>
+                        <Route path="/" element={<HomePage />} />
+                        <Route path="/setting" element={<SettingPage />} />
+                        <Route path="/board" element={<BoardPage />} />
+                        <Route path="/history" element={<HistoryPage />} />
+                    </Routes>
+                </BrowserRouter>
+            </Layout>
         </ThemeProvider>
     );
 }
