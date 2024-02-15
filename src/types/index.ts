@@ -3,6 +3,11 @@ type PlayerColor = 'red' | 'orange' | 'blue' | 'green';
 type StartingPlayer = 'random' | 'Player 1' | 'Player 2';
 type PlayerId = 1 | 2;
 
+interface Option {
+    value: string;
+    label: string;
+}
+
 interface Player {
     id: PlayerId;
     mark: PlayerMark;
@@ -45,6 +50,7 @@ interface GameHistory {
 }
 
 export type {
+    Option,
     PlayerMark,
     PlayerColor,
     StartingPlayer,
