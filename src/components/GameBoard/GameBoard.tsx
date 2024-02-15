@@ -6,6 +6,8 @@ import useGameStatus from 'hooks/useGameStatus';
 import { boardState, gameSettingsState, gameStatusState } from 'stores/atoms';
 import { Move } from 'types';
 
+import * as S from './GameBoard.styled';
+
 const GameBoard = () => {
     const [gameSettings] = useRecoilState(gameSettingsState);
     const [gameStatus, setGameStatus] = useRecoilState(gameStatusState);
@@ -48,32 +50,28 @@ const GameBoard = () => {
     };
 
     return (
-        <div>
+        <S.BoardContainer>
             {board.map((row, rowIndex) => (
                 <div key={rowIndex} style={{ display: 'flex' }}>
                     {row.map((cell, cellIndex) => {
                         const checkPlayer = gameSettings.players.find(player => player.id === cell.playerId);
+                        const playerColor = checkPlayer ? checkPlayer.color : 'black';
                         return (
-                            <div
+                            <S.Cell
                                 key={cellIndex}
+                                isLastRow={rowIndex === board.length - 1}
+                                isLastCell={cellIndex === board.length - 1}
                                 onClick={() => handleCellClick(rowIndex, cellIndex)}
-                                style={{
-                                    width: '50px',
-                                    height: '50px',
-                                    border: '1px solid black',
-                                    display: 'flex',
-                                    justifyContent: 'center',
-                                    alignItems: 'center',
-                                    color: checkPlayer?.color || 'black',
-                                }}
+                                color={playerColor}
+                                boardSize={board.length}
                             >
                                 {checkPlayer?.mark || ''}
-                            </div>
+                            </S.Cell>
                         );
                     })}
                 </div>
             ))}
-        </div>
+        </S.BoardContainer>
     );
 };
 
