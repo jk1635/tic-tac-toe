@@ -41,7 +41,7 @@ const HistoryPage = () => {
                                                     color: player?.color || 'black',
                                                 }}
                                             >
-                                                <span>{player?.mark}</span>
+                                                <span className="material-symbols-outlined">{player?.mark}</span>
                                                 {move && (
                                                     <span
                                                         style={{

@@ -65,7 +65,11 @@ const GameBoard = () => {
                                 color={playerColor}
                                 boardSize={board.length}
                             >
-                                {checkPlayer?.mark || ''}
+                                {checkPlayer?.mark ? (
+                                    <span className="material-symbols-outlined">{checkPlayer.mark}</span>
+                                ) : (
+                                    ''
+                                )}
                             </S.Cell>
                         );
                     })}

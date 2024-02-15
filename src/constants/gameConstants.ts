@@ -4,10 +4,10 @@ const PLAYER_1: PlayerId = 1;
 const PLAYER_2: PlayerId = 2;
 
 const playerMarkOptions = [
-    { value: 'X', label: '엑스' },
-    { value: 'O', label: '동그라미' },
-    { value: '△', label: '세모' },
-    { value: '□', label: '네모' },
+    { value: 'close', label: '엑스' },
+    { value: 'circle', label: '동그라미' },
+    { value: 'change_history', label: '세모' },
+    { value: 'square', label: '네모' },
 ];
 
 const playerColorOptions = [

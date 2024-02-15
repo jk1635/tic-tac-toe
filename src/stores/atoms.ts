@@ -8,8 +8,8 @@ export const gameSettingsState = atom<GameSettings>({
         boardSize: [3, 3],
         winCondition: 3,
         players: [
-            { id: 1, mark: 'X', color: 'blue', backSteps: 3 },
-            { id: 2, mark: 'O', color: 'red', backSteps: 3 },
+            { id: 1, mark: 'close', color: 'blue', backSteps: 3 },
+            { id: 2, mark: 'circle', color: 'red', backSteps: 3 },
         ],
         startingPlayer: 'random',
     },

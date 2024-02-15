@@ -7,7 +7,7 @@ const BoardContainer = styled.div`
     align-items: center;
 `;
 
-const Cell = styled.div<{ isLastCell: boolean; isLastRow: boolean; color: string; boardSize: number }>`
+const Cell = styled.div<{ isLastCell: boolean; isLastRow: boolean; color?: string; boardSize: number }>`
     display: flex;
     justify-content: center;
     align-items: center;
@@ -15,7 +15,9 @@ const Cell = styled.div<{ isLastCell: boolean; isLastRow: boolean; color: string
     height: calc(min(${({ boardSize }) => 100 / boardSize}vw, 4rem));
     border-bottom: ${({ isLastRow }) => (isLastRow ? 'none' : '3px solid black')};
     border-right: ${({ isLastCell }) => (isLastCell ? 'none' : '3px solid black')};
-    color: ${({ color }) => color};
+    & > span {
+        color: ${({ color }) => color};
+    }
 `;
 
 export { BoardContainer, Cell };
