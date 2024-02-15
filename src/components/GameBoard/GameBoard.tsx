@@ -6,6 +6,8 @@ import useGameStatus from 'hooks/useGameStatus';
 import { boardState, gameSettingsState, gameStatusState } from 'stores/atoms';
 import { Move } from 'types';
 
+import { Icon } from '../Icon';
+
 import * as S from './GameBoard.styled';
 
 const GameBoard = () => {
@@ -55,18 +57,18 @@ const GameBoard = () => {
                 <div key={rowIndex} style={{ display: 'flex' }}>
                     {row.map((cell, cellIndex) => {
                         const checkPlayer = gameSettings.players.find(player => player.id === cell.playerId);
-                        const playerColor = checkPlayer ? checkPlayer.color : 'black';
                         return (
                             <S.Cell
                                 key={cellIndex}
                                 isLastRow={rowIndex === board.length - 1}
                                 isLastCell={cellIndex === board.length - 1}
                                 onClick={() => handleCellClick(rowIndex, cellIndex)}
-                                color={playerColor}
                                 boardSize={board.length}
                             >
                                 {checkPlayer?.mark ? (
-                                    <span className="material-symbols-outlined">{checkPlayer.mark}</span>
+                                    <Icon color={checkPlayer.color} size={4}>
+                                        {checkPlayer.mark}
+                                    </Icon>
                                 ) : (
                                     ''
                                 )}
