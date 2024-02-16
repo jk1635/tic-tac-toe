@@ -1,17 +1,30 @@
 import styled from '@emotion/styled';
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Select from 'react-select';
 import { useRecoilState } from 'recoil';
 
+import BasicContainer from 'components/Common/BasicContainer';
+import { FixedBottom } from 'components/FixedBottom';
+import { Header } from 'components/Header';
 import { playerColorOptions, playerMarkOptions, startingPlayerOptions } from 'constants/gameConstants';
 import { gameSettingsState } from 'stores/atoms';
 import { Option, PlayerColor, PlayerMark, StartingPlayer } from 'types';
 
-import theme from '../styles/theme';
-
 const SettingPage = () => {
+    const navigate = useNavigate();
+
     const [gameSettings, setGameSettings] = useRecoilState(gameSettingsState);
+
+    const boardSizeOptions: Option[] = Array.from({ length: 8 }, (_, i) => ({
+        value: String(i + 3),
+        label: `${i + 3} x ${i + 3}`,
+    }));
+
+    const winConditionOptions: Option[] = Array.from({ length: gameSettings.boardSize[0] - 2 }, (_, i) => ({
+        value: String(i + 3),
+        label: String(i + 3),
+    }));
 
     const handleBoardSizeChange = (selectedOption: Option | null) => {
         if (!selectedOption) return;
@@ -92,18 +105,9 @@ const SettingPage = () => {
         }));
     };
 
-    const boardSizeOptions: Option[] = Array.from({ length: 8 }, (_, i) => ({
-        value: String(i + 3),
-        label: `${i + 3} x ${i + 3}`,
-    }));
-
-    const winConditionOptions: Option[] = Array.from({ length: gameSettings.boardSize[0] - 2 }, (_, i) => ({
-        value: String(i + 3),
-        label: String(i + 3),
-    }));
-
     return (
-        <div>
+        <BasicContainer>
+            <Header />
             <SelectWrapper>
                 <span>보드 사이즈</span>
                 <Select
@@ -178,7 +182,6 @@ const SettingPage = () => {
                     menuPortalTarget={document.body}
                 />
             </SelectWrapper>
-
             <SelectWrapper>
                 <span>스타팅 멤버</span>
                 <Select
@@ -191,12 +194,21 @@ const SettingPage = () => {
                     menuPortalTarget={document.body}
                 />
             </SelectWrapper>
-            <LinkWrapper>
-                <Link to="/board">Start</Link>
-            </LinkWrapper>
-        </div>
+            <FixedBottom
+                onClick={() => {
+                    navigate('/board');
+                }}
+            >
+                Start
+            </FixedBottom>
+        </BasicContainer>
     );
 };
+
+const SettingContainer = styled.div`
+    padding-top: 5rem;
+    padding-bottom: 5.5rem;
+`;
 
 const SelectWrapper = styled.div`
     position: relative;
@@ -206,29 +218,9 @@ const SelectWrapper = styled.div`
         position: absolute;
         top: -0.438rem;
         left: 0.5rem;
-        z-index: 10;
+        z-index: 99;
         padding: 0 0.25rem;
         background-color: white;
-        font-size: 0.875rem;
-    }
-`;
-
-const LinkWrapper = styled.div`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 3.5rem;
-    padding: 0 1rem;
-    text-transform: uppercase;
-    border-radius: 0.25rem;
-    background-color: #237af2;
-    color: ${theme.colors.white};
-    cursor: pointer;
-
-    & > a {
-        text-decoration: none;
-        color: ${theme.colors.white};
-        font-weight: bold;
         font-size: 0.875rem;
     }
 `;
@@ -239,6 +231,8 @@ const SelectStyle = {
         paddingLeft: '0.5rem',
         minHeight: '48px',
         cursor: 'pointer',
+        borderRadius: '0.75rem',
+        // color:"#4e5968"
     }),
     option: (baseStyles: any) => ({
         ...baseStyles,
