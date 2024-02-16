@@ -31,7 +31,7 @@ type Board = Cell[][];
 interface Move {
     playerId: PlayerId;
     position: [number, number];
-    moveNumber: number;
+    moveOrders: number;
 }
 
 interface GameStatus {

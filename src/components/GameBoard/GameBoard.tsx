@@ -25,7 +25,7 @@ const GameBoard = () => {
         const newMove: Move = {
             playerId: gameStatus.currentTurn,
             position: [row, col],
-            moveNumber: gameStatus.moves.length + 1,
+            moveOrders: gameStatus.moves.length + 1,
         };
 
         const updatedBoard = updateBoard(board, row, col, gameStatus.currentTurn);
@@ -63,14 +63,12 @@ const GameBoard = () => {
                                 isLastRow={rowIndex === board.length - 1}
                                 isLastCell={cellIndex === board.length - 1}
                                 onClick={() => handleCellClick(rowIndex, cellIndex)}
-                                boardSize={board.length}
+                                boardLength={board.length}
                             >
-                                {checkPlayer?.mark ? (
+                                {checkPlayer?.mark && (
                                     <Icon color={checkPlayer.color} size={2.5} bold>
                                         {checkPlayer.mark}
                                     </Icon>
-                                ) : (
-                                    ''
                                 )}
                             </S.Cell>
                         );
