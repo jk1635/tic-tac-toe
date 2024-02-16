@@ -1,8 +1,9 @@
 import React, { useEffect } from 'react';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 
 import useInitializeBoard from 'hooks/useInitializeBoard';
 import { boardState, gameSettingsState, gameStatusState, historyState } from 'stores/atoms';
+import { backAbleState } from 'stores/selectors';
 import theme from 'styles/theme';
 import { GameHistory } from 'types';
 
@@ -17,50 +18,49 @@ const PlayAction = () => {
     const [board, setBoard] = useRecoilState(boardState);
     const [, setHistory] = useRecoilState(historyState);
 
+    const isBackSteps = useRecoilValue(backAbleState);
+
     const { initializeBoard } = useInitializeBoard();
 
-    useEffect(() => {
-        initializeBoard();
-    }, [gameSettings.boardSize, gameSettings.winCondition]);
-
     const handleBackSteps = () => {
-        if (gameStatus.moves.length > 0 && gameStatus.status === 'inProgress') {
-            const previousBoard = board.map((row, rowIndex) =>
-                row.map((cell, cellIndex) => {
-                    if (rowIndex === lastMove.position[0] && cellIndex === lastMove.position[1]) {
-                        return { ...cell, playerId: null };
-                    }
-                    return cell;
-                })
-            );
+        if (gameStatus.moves.length === 0 || gameStatus.status !== 'inProgress') return;
 
-            const updatedPlayers = gameSettings.players.map(player => {
-                if (player.id === lastMove.playerId) {
-                    return { ...player, backSteps: player.backSteps > 0 ? player.backSteps - 1 : 0 };
+        const lastMove = gameStatus.moves[gameStatus.moves.length - 1];
+
+        const previousBoard = board.map((row, rowIndex) =>
+            row.map((cell, cellIndex) => {
+                if (rowIndex === lastMove.position[0] && cellIndex === lastMove.position[1]) {
+                    return { ...cell, playerId: null };
                 }
-                return player;
-            });
+                return cell;
+            })
+        );
 
-            const updatedMoves = gameStatus.moves.slice(0, -1);
+        const updatedPlayers = gameSettings.players.map(player =>
+            player.id === lastMove.playerId ? { ...player, backSteps: Math.max(player.backSteps - 1, 0) } : player
+        );
 
-            setBoard(previousBoard);
+        const updatedMoves = gameStatus.moves.slice(0, -1);
 
-            setGameStatus(prev => ({
-                ...prev,
-                moves: updatedMoves,
-                currentTurn: lastMove.playerId,
-            }));
-
-            setGameSettings(prevSettings => ({
-                ...prevSettings,
-                players: updatedPlayers,
-            }));
-        }
+        setBoard(previousBoard);
+        setGameStatus(prev => ({
+            ...prev,
+            moves: updatedMoves,
+            currentTurn: lastMove.playerId,
+        }));
+        setGameSettings(prev => ({
+            ...prev,
+            players: updatedPlayers,
+        }));
     };
 
     const handleResetGame = () => {
         initializeBoard();
     };
+
+    useEffect(() => {
+        initializeBoard();
+    }, [gameSettings.boardSize, gameSettings.winCondition]);
 
     const handleSaveHistory = () => {
         if (gameStatus.status === 'win' || gameStatus.status === 'tie') {
@@ -79,17 +79,10 @@ const PlayAction = () => {
         }
     };
 
-    const lastMove = gameStatus.moves[gameStatus.moves.length - 1];
-    const lastPlayerIndex = lastMove ? gameSettings.players.findIndex(player => player.id === lastMove.playerId) : -1;
-    const isBackStepsDisabled =
-        lastPlayerIndex === -1 ||
-        gameSettings.players[lastPlayerIndex].backSteps <= 0 ||
-        gameStatus.status !== 'inProgress';
-
     return (
         <S.GameActions>
             <S.ActionWrapper>
-                <S.IconButton onClick={handleBackSteps} disabled={isBackStepsDisabled}>
+                <S.IconButton onClick={handleBackSteps} disabled={!isBackSteps}>
                     <Icon size={2} color={theme.colors.gray}>
                         history
                     </Icon>

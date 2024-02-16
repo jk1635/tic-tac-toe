@@ -1,5 +1,5 @@
 import React from 'react';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 
 import { historyState } from 'stores/atoms';
 
@@ -8,7 +8,7 @@ import { Icon } from '../Icon';
 import * as S from './LogBoard.styled';
 
 const LogBoard = () => {
-    const [history] = useRecoilState(historyState);
+    const history = useRecoilValue(historyState);
 
     return (
         <>

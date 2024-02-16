@@ -12,9 +12,9 @@ import { Icon } from '../Icon';
 import * as S from './GameBoard.styled';
 
 const GameBoard = () => {
-    const [gameSettings] = useRecoilState(gameSettingsState);
     const [gameStatus, setGameStatus] = useRecoilState(gameStatusState);
     const [board, setBoard] = useRecoilState(boardState);
+    const gameSettings = useRecoilValue(gameSettingsState);
     const currentPlayer = useRecoilValue(currentPlayerState);
 
     const { updateBoard, checkWin, checkTie } = useGameStatus();
