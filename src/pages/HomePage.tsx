@@ -4,16 +4,18 @@ import { useNavigate } from 'react-router-dom';
 
 import { Button } from 'components/Button';
 
+import { BasicContainer } from '../components/Common';
+
 const HomePage = () => {
     const navigate = useNavigate();
 
     return (
-        <div>
+        <BasicContainer isCentered>
             <ButtonWrapper>
                 <Button onClick={() => navigate('/setting')}>start</Button>
                 <Button onClick={() => navigate('/history')}>history</Button>
             </ButtonWrapper>
-        </div>
+        </BasicContainer>
     );
 };
 
