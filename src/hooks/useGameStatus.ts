@@ -71,7 +71,7 @@ const useGameStatus = () => {
         return false;
     };
 
-    const checkDraw = (board: Board): boolean => {
+    const checkTie = (board: Board): boolean => {
         const boardLength = board.length;
 
         for (let row = 0; row < boardLength; row++) {
@@ -84,7 +84,7 @@ const useGameStatus = () => {
 
         return true;
     };
-    return { updateBoard, checkWin, checkDraw };
+    return { updateBoard, checkWin, checkTie };
 };
 
 export default useGameStatus;

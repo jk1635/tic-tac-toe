@@ -1,12 +1,16 @@
 import React, { useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 
 import useInitializeBoard from 'hooks/useInitializeBoard';
 import { boardState, gameSettingsState, gameStatusState, historyState } from 'stores/atoms';
 import { GameHistory } from 'types';
 
+import { FixedBottom } from '../FixedBottom';
+
 const PlayAction = () => {
+    const navigate = useNavigate();
+
     const [gameSettings, setGameSettings] = useRecoilState(gameSettingsState);
     const [gameStatus, setGameStatus] = useRecoilState(gameStatusState);
     const [board, setBoard] = useRecoilState(boardState);
@@ -58,11 +62,11 @@ const PlayAction = () => {
     };
 
     const handleSaveHistory = () => {
-        if (gameStatus.status === 'win' || gameStatus.status === 'draw') {
+        if (gameStatus.status === 'win' || gameStatus.status === 'tie') {
             const newGameRecord: GameHistory = {
                 finalBoard: board,
                 winner: gameStatus.winner,
-                isDraw: gameStatus.status === 'draw',
+                isTie: gameStatus.status === 'tie',
                 moves: gameStatus.moves,
                 players: gameSettings.players,
             };
@@ -92,8 +96,8 @@ const PlayAction = () => {
             </button>
             <button onClick={handleResetGame}>리셋</button>
             <button onClick={handleSaveHistory}>저장</button>
-            <Link to="/setting">재설정</Link>
-            <Link to="/history">저장된 게임</Link>
+
+            <FixedBottom onClick={() => navigate('/setting')}>Setting</FixedBottom>
         </div>
     );
 };
