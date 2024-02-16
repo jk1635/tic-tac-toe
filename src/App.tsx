@@ -1,6 +1,6 @@
 import { ThemeProvider, Global } from '@emotion/react';
-import React from 'react';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { BrowserRouter, Route, Routes, useLocation } from 'react-router-dom';
 
 import { Layout } from 'components/Layout';
 import BoardPage from 'pages/BoardPage';
@@ -14,12 +14,23 @@ import theme from 'styles/theme';
 import { GlobalPortal } from './GlobalPortal';
 
 function App() {
+    const ScrollToTop = () => {
+        const { pathname } = useLocation();
+
+        useEffect(() => {
+            window.scrollTo(0, 0);
+        }, [pathname]);
+
+        return null;
+    };
+
     return (
         <GlobalPortal.Provider>
             <ThemeProvider theme={theme}>
                 <Global styles={[reset, global]} />
                 <Layout>
                     <BrowserRouter>
+                        <ScrollToTop />
                         <Routes>
                             <Route path="/" element={<HomePage />} />
                             <Route path="/setting" element={<SettingPage />} />
