@@ -21,7 +21,7 @@ const HeaderContainer = styled.div`
 `;
 
 const Logo = styled.span`
-    color: #237af2;
+    color: ${theme.colors.blue};
     font-size: 1.5rem;
     cursor: pointer;
     user-select: none;

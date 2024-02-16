@@ -6,6 +6,8 @@ import { gameSettingsState, gameStatusState } from 'stores/atoms';
 
 import { Icon } from '../Icon';
 
+import * as S from './StatusIndicator.styled';
+
 const StatusIndicator = () => {
     const [gameSettings] = useRecoilState(gameSettingsState);
     const [gameStatus] = useRecoilState(gameStatusState);
@@ -14,13 +16,13 @@ const StatusIndicator = () => {
     const winnerPlayer = gameSettings.players.find(player => player.id === gameStatus.winner);
 
     return (
-        <GameStatus>
-            <StatusWrapper>
-                <Number>{gameSettings.boardSize[0]}</Number>
-                <Text>사이즈</Text>
-            </StatusWrapper>
-            <StatusWrapper>
-                <Status>
+        <S.GameStatus>
+            <S.StatusWrapper>
+                <S.Number>{gameSettings.boardSize[0]}</S.Number>
+                <S.Text>사이즈</S.Text>
+            </S.StatusWrapper>
+            <S.StatusWrapper>
+                <S.Status>
                     {gameStatus.status === 'inProgress' && (
                         <Icon size={2} color={currentPlayer?.color}>
                             {currentPlayer?.mark}
@@ -32,48 +34,19 @@ const StatusIndicator = () => {
                         </Icon>
                     )}
                     {gameStatus.status === 'tie' && '-'}
-                </Status>
-                <Text>
+                </S.Status>
+                <S.Text>
                     {gameStatus.status === 'tie' && '무승부'}
                     {gameStatus.status === 'win' && '승리'}
                     {gameStatus.status === 'inProgress' && '차례'}
-                </Text>
-            </StatusWrapper>
-            <StatusWrapper>
-                <Number>{gameSettings.winCondition}</Number>
-                <Text>조건</Text>
-            </StatusWrapper>
-        </GameStatus>
+                </S.Text>
+            </S.StatusWrapper>
+            <S.StatusWrapper>
+                <S.Number>{gameSettings.winCondition}</S.Number>
+                <S.Text>조건</S.Text>
+            </S.StatusWrapper>
+        </S.GameStatus>
     );
 };
-
-const GameStatus = styled.div`
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 1rem;
-`;
-
-const StatusWrapper = styled.div`
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    width: 5rem;
-    height: 5rem;
-    padding: 0.5rem;
-`;
-
-const Number = styled.span`
-    font-size: 2rem;
-    text-align: center;
-`;
-
-const Text = styled.span`
-    font-size: 1rem;
-    text-align: center;
-`;
-
-const Status = styled.div`
-    text-align: center;
-`;
 
 export default StatusIndicator;

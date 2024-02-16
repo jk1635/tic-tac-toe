@@ -3,14 +3,15 @@ import React, { ReactNode } from 'react';
 
 interface IconProps {
     size?: number;
+    bold?: boolean;
     color?: string;
     children: ReactNode;
 }
-const Icon: React.FC<IconProps> = ({ size, color, children }) => {
+const Icon: React.FC<IconProps> = ({ size, bold, color, children }) => {
     return (
         <IconWrapper color={color}>
             <span
-                style={{ fontSize: `${size}rem`, verticalAlign: 'bottom', fontWeight: 'bold' }}
+                style={{ fontSize: `${size}rem`, verticalAlign: 'bottom', fontWeight: `${bold ? 'bold' : '400'}` }}
                 className="material-symbols-outlined"
             >
                 {children}

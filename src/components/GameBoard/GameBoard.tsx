@@ -66,7 +66,7 @@ const GameBoard = () => {
                                 boardSize={board.length}
                             >
                                 {checkPlayer?.mark ? (
-                                    <Icon color={checkPlayer.color} size={4}>
+                                    <Icon color={checkPlayer.color} size={2.5} bold>
                                         {checkPlayer.mark}
                                     </Icon>
                                 ) : (

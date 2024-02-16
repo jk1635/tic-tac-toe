@@ -232,7 +232,6 @@ const SelectStyle = {
         minHeight: '48px',
         cursor: 'pointer',
         borderRadius: '0.75rem',
-        // color:"#4e5968"
     }),
     option: (baseStyles: any) => ({
         ...baseStyles,

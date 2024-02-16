@@ -11,7 +11,7 @@ const ButtonWrapper = styled.button<{ fullWidth: boolean }>`
     padding: 0 1.5rem;
     text-transform: uppercase;
     border-radius: 0.75rem;
-    background-color: #237af2;
+    background-color: ${theme.colors.blue};
     color: ${theme.colors.white};
     cursor: pointer;
     width: ${({ fullWidth }) => (fullWidth ? '100%' : 'auto')};
