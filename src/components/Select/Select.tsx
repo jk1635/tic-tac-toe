@@ -1,24 +1,33 @@
 import React from 'react';
+import Select, { StylesConfig } from 'react-select';
+
+import { Option } from 'types';
+
+import * as S from './Select.styled';
 
 interface SelectOptionProps {
     label: string;
-    id: string;
-    value: string;
-    onChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
-    options: { value: string; label: string }[];
+    options: Option[];
+    value: Option | null;
+    defaultValue?: Option | null;
+    onChange: (selectedOption: Option | null) => void;
+    styles?: StylesConfig<Option, false>;
 }
 
-const Select: React.FC<SelectOptionProps> = ({ label, id, value, onChange, options }) => (
-    <div>
-        <label htmlFor={id}>{label}: </label>
-        <select id={id} value={value} onChange={onChange}>
-            {options.map((option, index) => (
-                <option key={index} value={option.value}>
-                    {option.label}
-                </option>
-            ))}
-        </select>
-    </div>
-);
+const SelectOption = ({ label, options, value, defaultValue, onChange }: SelectOptionProps) => {
+    return (
+        <S.SelectWrapper>
+            <span>{label}</span>
+            <Select
+                options={options}
+                value={value}
+                onChange={onChange}
+                defaultValue={defaultValue}
+                styles={S.SelectStyle}
+                menuPortalTarget={document.body}
+            />
+        </S.SelectWrapper>
+    );
+};
 
-export default Select;
+export default SelectOption;
