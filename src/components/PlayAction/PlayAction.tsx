@@ -1,16 +1,17 @@
 import React, { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 
 import useInitializeBoard from 'hooks/useInitializeBoard';
 import { boardState, gameSettingsState, gameStatusState, historyState } from 'stores/atoms';
+import theme from 'styles/theme';
 import { GameHistory } from 'types';
 
 import { FixedBottom } from '../FixedBottom';
+import { Icon } from '../Icon';
+
+import * as S from './PlayAction.styled';
 
 const PlayAction = () => {
-    const navigate = useNavigate();
-
     const [gameSettings, setGameSettings] = useRecoilState(gameSettingsState);
     const [gameStatus, setGameStatus] = useRecoilState(gameStatusState);
     const [board, setBoard] = useRecoilState(boardState);
@@ -72,6 +73,9 @@ const PlayAction = () => {
             };
 
             setHistory(prev => [...prev, newGameRecord]);
+            alert('게임 기록이 저장되었습니다.');
+        } else {
+            alert('게임을 완료해주세요.');
         }
     };
 
@@ -83,22 +87,35 @@ const PlayAction = () => {
         gameStatus.status !== 'inProgress';
 
     return (
-        <div>
+        <S.GameActions>
+            <S.ActionWrapper>
+                <S.IconButton onClick={handleBackSteps} disabled={isBackStepsDisabled}>
+                    <Icon size={2} color={theme.colors.gray}>
+                        history
+                    </Icon>
+                </S.IconButton>
+                <S.Text>무르기</S.Text>
+            </S.ActionWrapper>
             {gameSettings.players.map((player, index) => (
-                <div key={index}>
-                    <span>
-                        {player.mark} 무르기 남은 횟수: {player.backSteps}회
-                    </span>
-                </div>
+                <S.RemainingBackSteps key={`player-${index}`}>
+                    <S.BackStepStatus>
+                        <Icon size={2} color={player.color}>
+                            {player.mark}
+                        </Icon>
+                    </S.BackStepStatus>
+                    <S.BackStepStatus>{player.backSteps}회</S.BackStepStatus>
+                </S.RemainingBackSteps>
             ))}
-            <button onClick={handleBackSteps} disabled={isBackStepsDisabled}>
-                무르기
-            </button>
-            <button onClick={handleResetGame}>리셋</button>
-            <button onClick={handleSaveHistory}>저장</button>
-
-            <FixedBottom onClick={() => navigate('/setting')}>Setting</FixedBottom>
-        </div>
+            <S.ActionWrapper>
+                <S.IconButton onClick={handleResetGame}>
+                    <Icon size={2} color={theme.colors.gray}>
+                        restart_alt
+                    </Icon>
+                </S.IconButton>
+                <S.Text>다시하기</S.Text>
+            </S.ActionWrapper>
+            <FixedBottom onClick={handleSaveHistory}>Save</FixedBottom>
+        </S.GameActions>
     );
 };
 
