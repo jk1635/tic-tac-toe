@@ -1,11 +1,13 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 
+import { FixedBottom } from 'components/FixedBottom';
+import { Icon } from 'components/Icon';
 import { historyState } from 'stores/atoms';
 
-import { Icon } from '../components/Icon';
-
 const HistoryPage = () => {
+    const navigate = useNavigate();
     const [history] = useRecoilState(historyState);
 
     return (
@@ -13,7 +15,7 @@ const HistoryPage = () => {
             <h2>게임 기록</h2>
             {history.map((gameRecord, index) => {
                 const result = gameRecord.players.find(p => p.id === gameRecord.winner);
-                const resultText = gameRecord.isDraw ? '무승부' : `승리 ${result?.mark || ''}`;
+                const resultText = gameRecord.isTie ? '무승부' : `승리 ${result?.mark || ''}`;
 
                 return (
                     <div key={index}>
@@ -67,6 +69,13 @@ const HistoryPage = () => {
                     </div>
                 );
             })}
+            <FixedBottom
+                onClick={() => {
+                    navigate('/');
+                }}
+            >
+                Home
+            </FixedBottom>
         </div>
     );
 };

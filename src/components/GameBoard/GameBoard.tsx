@@ -15,7 +15,7 @@ const GameBoard = () => {
     const [gameStatus, setGameStatus] = useRecoilState(gameStatusState);
     const [board, setBoard] = useRecoilState(boardState);
 
-    const { updateBoard, checkWin, checkDraw } = useGameStatus();
+    const { updateBoard, checkWin, checkTie } = useGameStatus();
 
     const handleCellClick = (row: number, col: number): void => {
         if (board[row][col].playerId || gameStatus.status !== 'inProgress') {
@@ -43,10 +43,10 @@ const GameBoard = () => {
                 status: 'win',
                 winner: gameStatus.currentTurn,
             }));
-        } else if (checkDraw(updatedBoard)) {
+        } else if (checkTie(updatedBoard)) {
             setGameStatus(prev => ({
                 ...prev,
-                status: 'draw',
+                status: 'tie',
             }));
         }
     };

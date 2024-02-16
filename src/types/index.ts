@@ -37,14 +37,14 @@ interface Move {
 interface GameStatus {
     currentTurn: PlayerId;
     moves: Move[];
-    status: 'inProgress' | 'win' | 'draw';
+    status: 'inProgress' | 'win' | 'tie';
     winner: PlayerId | null;
 }
 
 interface GameHistory {
     finalBoard: Board;
     winner: PlayerId | null;
-    isDraw: boolean;
+    isTie: boolean;
     moves: Move[];
     players: Player[];
 }

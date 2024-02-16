@@ -4,7 +4,7 @@ const Container = styled.main`
     min-width: var(--min-width);
     max-width: var(--max-width);
     margin: 0 auto;
-    padding: 4rem 2rem;
+    padding: 0 1.5rem;
 `;
 
 export { Container };
