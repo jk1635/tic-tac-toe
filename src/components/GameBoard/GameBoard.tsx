@@ -1,9 +1,10 @@
 import React from 'react';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 
 import { PLAYER_1, PLAYER_2 } from 'constants/gameConstants';
 import useGameStatus from 'hooks/useGameStatus';
 import { boardState, gameSettingsState, gameStatusState } from 'stores/atoms';
+import { currentPlayerState } from 'stores/selectors';
 import { Move } from 'types';
 
 import { Icon } from '../Icon';
@@ -14,6 +15,7 @@ const GameBoard = () => {
     const [gameSettings] = useRecoilState(gameSettingsState);
     const [gameStatus, setGameStatus] = useRecoilState(gameStatusState);
     const [board, setBoard] = useRecoilState(boardState);
+    const currentPlayer = useRecoilValue(currentPlayerState);
 
     const { updateBoard, checkWin, checkTie } = useGameStatus();
 
@@ -23,22 +25,22 @@ const GameBoard = () => {
         }
 
         const newMove: Move = {
-            playerId: gameStatus.currentTurn,
+            playerId: currentPlayer.id,
             position: [row, col],
             moveOrders: gameStatus.moves.length + 1,
         };
 
-        const updatedBoard = updateBoard(board, row, col, gameStatus.currentTurn);
+        const updatedBoard = updateBoard(board, row, col, currentPlayer.id);
         setBoard(updatedBoard);
 
-        const isWin = checkWin(updatedBoard, gameStatus.currentTurn, gameSettings.winCondition);
+        const isWin = checkWin(updatedBoard, currentPlayer.id, gameSettings.winCondition);
         const isTie = checkTie(updatedBoard);
 
         setGameStatus(prev => ({
             ...prev,
             moves: [...prev.moves, newMove],
             currentTurn: prev.currentTurn === PLAYER_1 ? PLAYER_2 : PLAYER_1,
-            ...(isWin && { status: 'win', winner: gameStatus.currentTurn }),
+            ...(isWin && { status: 'win', winner: currentPlayer.id }),
             ...(isTie && { status: 'tie' }),
         }));
     };
@@ -48,7 +50,7 @@ const GameBoard = () => {
             {board.map((row, rowIndex) => (
                 <div key={rowIndex} style={{ display: 'flex' }}>
                     {row.map((cell, cellIndex) => {
-                        const checkPlayer = gameSettings.players.find(player => player.id === cell.playerId);
+                        const selectedPlayer = gameSettings.players.find(player => player.id === cell.playerId);
                         return (
                             <S.Cell
                                 key={cellIndex}
@@ -57,9 +59,9 @@ const GameBoard = () => {
                                 onClick={() => handleCellClick(rowIndex, cellIndex)}
                                 boardLength={board.length}
                             >
-                                {checkPlayer?.mark && (
-                                    <Icon color={checkPlayer.color} size={2.5} bold>
-                                        {checkPlayer.mark}
+                                {selectedPlayer?.mark && (
+                                    <Icon color={selectedPlayer.color} size={2.5} bold>
+                                        {selectedPlayer.mark}
                                     </Icon>
                                 )}
                             </S.Cell>
