@@ -29,8 +29,8 @@ const TableWrapper = styled.div`
 `;
 
 const Table = styled.div`
-    border: 1px solid ${theme.colors.gray};
     max-width: fit-content;
+    border: 1px solid ${theme.colors.gray};
 `;
 
 const Cell = styled.div<{ isLastCell: boolean; isLastRow: boolean; color?: string; boardLength: number }>`
@@ -40,8 +40,8 @@ const Cell = styled.div<{ isLastCell: boolean; isLastRow: boolean; color?: strin
     align-items: center;
     width: ${({ boardLength }) => `calc(min(${100 / boardLength}vw, 4rem))`};
     height: ${({ boardLength }) => `calc(min(${100 / boardLength}vw, 4rem))`};
-    border-bottom: ${({ isLastRow }) => (isLastRow ? 'none' : `1px solid ${theme.colors.gray}`)};
     border-right: ${({ isLastCell }) => (isLastCell ? 'none' : `1px solid ${theme.colors.gray}`)};
+    border-bottom: ${({ isLastRow }) => (isLastRow ? 'none' : `1px solid ${theme.colors.gray}`)};
 `;
 
 const MoveOrders = styled.span`

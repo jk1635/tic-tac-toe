@@ -184,8 +184,8 @@ const SettingPage = () => {
 const Clear = styled.div`
     display: flex;
     justify-content: flex-end;
-    padding-bottom: 1rem;
     margin-top: -1.5rem;
+    padding-bottom: 1rem;
 `;
 
 export default SettingPage;

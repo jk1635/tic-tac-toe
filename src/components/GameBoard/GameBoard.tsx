@@ -29,26 +29,18 @@ const GameBoard = () => {
         };
 
         const updatedBoard = updateBoard(board, row, col, gameStatus.currentTurn);
-
         setBoard(updatedBoard);
+
+        const isWin = checkWin(updatedBoard, gameStatus.currentTurn, gameSettings.winCondition);
+        const isTie = checkTie(updatedBoard);
+
         setGameStatus(prev => ({
             ...prev,
             moves: [...prev.moves, newMove],
             currentTurn: prev.currentTurn === PLAYER_1 ? PLAYER_2 : PLAYER_1,
+            ...(isWin && { status: 'win', winner: gameStatus.currentTurn }),
+            ...(isTie && { status: 'tie' }),
         }));
-
-        if (checkWin(updatedBoard, gameStatus.currentTurn, gameSettings.winCondition)) {
-            setGameStatus(prev => ({
-                ...prev,
-                status: 'win',
-                winner: gameStatus.currentTurn,
-            }));
-        } else if (checkTie(updatedBoard)) {
-            setGameStatus(prev => ({
-                ...prev,
-                status: 'tie',
-            }));
-        }
     };
 
     return (

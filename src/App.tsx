@@ -3,6 +3,7 @@ import React, { useEffect } from 'react';
 import { BrowserRouter, Route, Routes, useLocation } from 'react-router-dom';
 
 import { Layout } from 'components/Layout';
+import { GlobalPortal } from 'GlobalPortal';
 import BoardPage from 'pages/BoardPage';
 import HistoryPage from 'pages/HistoryPage';
 import HomePage from 'pages/HomePage';
@@ -10,8 +11,6 @@ import SettingPage from 'pages/SettingPage';
 import global from 'styles/global';
 import reset from 'styles/reset';
 import theme from 'styles/theme';
-
-import { GlobalPortal } from './GlobalPortal';
 
 function App() {
     const ScrollToTop = () => {

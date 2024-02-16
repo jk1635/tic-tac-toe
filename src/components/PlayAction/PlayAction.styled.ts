@@ -11,8 +11,8 @@ const ActionWrapper = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    width: 5rem;
     padding: 0.5rem;
+    width: 5rem;
 `;
 
 const RemainingBackSteps = styled.div`
@@ -29,10 +29,10 @@ const BackStepStatus = styled.span`
 `;
 
 const IconButton = styled.button`
-    font-size: 2rem;
-    text-align: center;
     border: 0;
     background: transparent;
+    font-size: 2rem;
+    text-align: center;
 `;
 
 const Text = styled.span`
