@@ -10,11 +10,10 @@ const useInitializeBoard = () => {
     const [, setBoard] = useRecoilState(boardState);
 
     const initializeBoard = () => {
-        const newBoard = Array.from({ length: gameSettings.boardSize[0] }, () =>
-            Array.from({ length: gameSettings.boardSize[0] }, () => ({
-                playerId: null,
-            }))
-        );
+        const boardSize = gameSettings.boardSize[0];
+        const newBoard = Array(boardSize)
+            .fill(null)
+            .map(() => Array(boardSize).fill({ playerId: null }));
         setBoard(newBoard);
 
         let startingPlayerId: PlayerId;
@@ -35,7 +34,7 @@ const useInitializeBoard = () => {
         }));
 
         setGameStatus({
-            currentTurn: startingPlayerId,
+            currentTurn: startingPlayerId as PlayerId,
             moves: [],
             status: 'inProgress',
             winner: null,
