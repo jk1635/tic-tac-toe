@@ -1,6 +1,5 @@
+import { keyframes } from '@emotion/react';
 import styled from '@emotion/styled';
-
-import theme from 'styles/theme';
 
 const BasicContainer = styled.div`
     padding-top: 4.5rem;
@@ -27,12 +26,27 @@ const LinkWrapper = styled.div`
     background-color: #f0f1f2;
 
     & > a {
+        color: ${({ theme }) => theme.colors.gray};
         font-size: 1rem;
         font-weight: bold;
         line-height: 2;
-        color: ${theme.colors.gray};
         text-decoration: none;
     }
 `;
 
-export { BasicContainer, CenterContainer, Title, LinkWrapper };
+const rotate = keyframes`
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+`;
+
+const Spinner = styled.div`
+    display: inline-block;
+    opacity: 0.26;
+    animation: ${rotate} 2s linear infinite;
+`;
+
+export { BasicContainer, CenterContainer, Title, LinkWrapper, Spinner };
