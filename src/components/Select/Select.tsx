@@ -9,12 +9,11 @@ interface SelectOptionProps {
     label: string;
     options: Option[];
     value: Option | null;
-    defaultValue?: Option | null;
     onChange: (selectedOption: Option | null) => void;
     styles?: StylesConfig<Option, false>;
 }
 
-const SelectOption = ({ label, options, value, defaultValue, onChange }: SelectOptionProps) => {
+const SelectOption = ({ label, options, value, onChange }: SelectOptionProps) => {
     return (
         <S.SelectWrapper>
             <span>{label}</span>
@@ -22,7 +21,6 @@ const SelectOption = ({ label, options, value, defaultValue, onChange }: SelectO
                 options={options}
                 value={value}
                 onChange={onChange}
-                defaultValue={defaultValue}
                 styles={S.SelectStyle}
                 menuPortalTarget={document.body}
             />

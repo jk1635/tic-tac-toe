@@ -3,11 +3,11 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 
-import BasicContainer from 'components/Common/BasicContainer';
+import { BasicContainer } from 'components/Common';
 import { FixedBottom } from 'components/FixedBottom';
 import { Header } from 'components/Header';
 import { Icon } from 'components/Icon';
-import SelectOption from 'components/Select/Select';
+import { SelectOption } from 'components/Select';
 import { playerColorOptions, playerMarkOptions, startingPlayerOptions } from 'constants/gameConstants';
 import { gameSettingsState } from 'stores/atoms';
 import theme from 'styles/theme';
@@ -119,11 +119,21 @@ const SettingPage = () => {
         }));
     };
 
+    const handleStart = () => {
+        const player1 = gameSettings.players[0];
+        const player2 = gameSettings.players[1];
+        if (player1.color === player2.color && player1.mark === player2.mark) {
+            alert('플레이어 1과 플레이어 2의 마크와 색상이 동일합니다. 구별할 수 있게 바꿔주세요.');
+        } else {
+            navigate('/board');
+        }
+    };
+
     return (
         <BasicContainer>
             <Header />
             <Clear onClick={handleResetSettings}>
-                <Icon size={1.25} color={theme.colors.gray}>
+                <Icon size={1.5} color={theme.colors.gray}>
                     restart_alt
                 </Icon>
             </Clear>
@@ -131,7 +141,6 @@ const SettingPage = () => {
                 label="보드 사이즈"
                 options={boardSizeOptions}
                 value={boardSizeOptions.find(option => option.value === String(gameSettings.boardSize[0])) || null}
-                defaultValue={boardSizeOptions.find(option => option.value === String(gameSettings.boardSize[0]))}
                 onChange={handleBoardSizeChange}
             />
             <SelectOption
@@ -170,13 +179,7 @@ const SettingPage = () => {
                 value={startingPlayerOptions.find(option => option.value === gameSettings.startingPlayer) || null}
                 onChange={handleStartingPlayerChange}
             />
-            <FixedBottom
-                onClick={() => {
-                    navigate('/board');
-                }}
-            >
-                Start
-            </FixedBottom>
+            <FixedBottom onClick={handleStart}>Start</FixedBottom>
         </BasicContainer>
     );
 };

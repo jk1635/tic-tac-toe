@@ -1,5 +1,5 @@
 import React from 'react';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilValue } from 'recoil';
 
 import { historyState } from 'stores/atoms';
 
@@ -23,7 +23,7 @@ const LogBoard = () => {
                                 {gameHistory.isTie && <S.Text>무승부</S.Text>}
                                 {!gameHistory.isTie && (
                                     <>
-                                        <Icon size={1.5} color={result?.color}>
+                                        <Icon size={1} color={result?.color} bold>
                                             {result?.mark}
                                         </Icon>
                                         <S.Text>승리</S.Text>

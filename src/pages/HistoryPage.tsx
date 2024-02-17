@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { BasicContainer } from 'components/Common';
 import { FixedBottom } from 'components/FixedBottom';
 import { Header } from 'components/Header';
-import LogBoard from 'components/LogBoard/LogBoard';
+import { LogBoard } from 'components/LogBoard';
 
 const HistoryPage = () => {
     const navigate = useNavigate();

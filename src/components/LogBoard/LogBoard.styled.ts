@@ -5,7 +5,7 @@ import theme from 'styles/theme';
 const BoardContainer = styled.div`
     display: flex;
     flex-direction: column;
-    margin-top: 2.5rem;
+    margin-top: 2rem;
 `;
 
 const Title = styled.h2`
@@ -21,7 +21,7 @@ const Result = styled.div`
 `;
 
 const Text = styled.span`
-    font-size: 1.5rem;
+    font-size: 1rem;
 `;
 
 const TableWrapper = styled.div`
