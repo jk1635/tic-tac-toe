@@ -1,7 +1,5 @@
 import styled from '@emotion/styled';
 
-import theme from 'styles/theme';
-
 const ButtonWrapper = styled.button<{ fullWidth: boolean }>`
     display: flex;
     justify-content: center;
@@ -11,17 +9,17 @@ const ButtonWrapper = styled.button<{ fullWidth: boolean }>`
     padding: 0 1.5rem;
     text-transform: uppercase;
     border-radius: 0.75rem;
-    background-color: ${theme.colors.blue};
-    color: ${theme.colors.white};
+    background-color: ${({ theme }) => theme.colors.primary};
+    color: ${({ theme }) => theme.colors.white};
     cursor: pointer;
     width: ${({ fullWidth }) => (fullWidth ? '100%' : 'auto')};
 `;
 
 const Label = styled.span`
-    text-decoration: none;
-    color: ${theme.colors.white};
-    font-weight: bold;
+    color: ${({ theme }) => theme.colors.white};
     font-size: 0.875rem;
+    font-weight: bold;
+    text-decoration: none;
 `;
 
 export { ButtonWrapper, Label };

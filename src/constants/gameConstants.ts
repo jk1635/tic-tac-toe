@@ -11,10 +11,10 @@ const playerMarkOptions = [
 ];
 
 const playerColorOptions = [
-    { value: 'blue', label: '파랑' },
-    { value: 'red', label: '빨강' },
-    { value: 'orange', label: '노랑' },
-    { value: 'green', label: '초록' },
+    { value: '#3182f6', label: '파랑' },
+    { value: '#f04452', label: '빨강' },
+    { value: '#ffb331', label: '노랑' },
+    { value: '#03b26c', label: '초록' },
 ];
 
 const startingPlayerOptions = [

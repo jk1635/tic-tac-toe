@@ -1,7 +1,5 @@
 import styled from '@emotion/styled';
 
-import theme from 'styles/theme';
-
 const BoardContainer = styled.div`
     display: flex;
     flex-direction: column;
@@ -30,7 +28,7 @@ const TableWrapper = styled.div`
 
 const Table = styled.div`
     max-width: fit-content;
-    border: 1px solid ${theme.colors.gray};
+    border: ${({ theme }) => `1px solid ${theme.colors.gray}`};
 `;
 
 const Cell = styled.div<{ isLastCell: boolean; isLastRow: boolean; color?: string; boardLength: number }>`
@@ -40,8 +38,8 @@ const Cell = styled.div<{ isLastCell: boolean; isLastRow: boolean; color?: strin
     align-items: center;
     width: ${({ boardLength }) => `calc(min(${100 / boardLength}vw, 4rem))`};
     height: ${({ boardLength }) => `calc(min(${100 / boardLength}vw, 4rem))`};
-    border-right: ${({ isLastCell }) => (isLastCell ? 'none' : `1px solid ${theme.colors.gray}`)};
-    border-bottom: ${({ isLastRow }) => (isLastRow ? 'none' : `1px solid ${theme.colors.gray}`)};
+    border-right: ${({ isLastCell, theme }) => (isLastCell ? 'none' : `1px solid ${theme.colors.gray}`)};
+    border-bottom: ${({ isLastRow, theme }) => (isLastRow ? 'none' : `1px solid ${theme.colors.gray}`)};
 `;
 
 const MoveOrders = styled.span`

@@ -1,3 +1,4 @@
+import { ThemeProvider } from '@emotion/react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
@@ -6,6 +7,7 @@ import { RecoilRoot } from 'recoil';
 import '@testing-library/jest-dom';
 import BoardPage from 'pages/BoardPage';
 import { boardState, gameSettingsState, gameStatusState } from 'stores/atoms';
+import theme from 'styles/theme';
 import { GameSettings, RecoilStateSet } from 'types';
 
 const initializeGame: RecoilStateSet = ({ set }) => {
@@ -13,8 +15,8 @@ const initializeGame: RecoilStateSet = ({ set }) => {
         boardSize: [3, 3],
         winCondition: 3,
         players: [
-            { id: 1, mark: 'close', color: 'blue', backSteps: 3 },
-            { id: 2, mark: 'circle', color: 'red', backSteps: 3 },
+            { id: 1, mark: 'close', color: '#3182f6', backSteps: 3 },
+            { id: 2, mark: 'circle', color: '#f04452', backSteps: 3 },
         ],
         startingPlayer: 'Player 1',
     } as GameSettings);
@@ -34,9 +36,11 @@ describe('보드 페이지 테스트', () => {
     beforeEach(() => {
         render(
             <RecoilRoot initializeState={initializeGame}>
-                <BrowserRouter>
-                    <BoardPage />
-                </BrowserRouter>
+                <ThemeProvider theme={theme}>
+                    <BrowserRouter>
+                        <BoardPage />
+                    </BrowserRouter>
+                </ThemeProvider>
             </RecoilRoot>
         );
     });

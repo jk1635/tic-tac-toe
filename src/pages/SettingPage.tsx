@@ -23,8 +23,8 @@ const SettingPage = () => {
             boardSize: [3, 3],
             winCondition: 3,
             players: [
-                { id: 1, mark: 'close', color: 'blue', backSteps: 3 },
-                { id: 2, mark: 'circle', color: 'red', backSteps: 3 },
+                { id: 1, mark: 'close', color: '#3182f6', backSteps: 3 },
+                { id: 2, mark: 'circle', color: '#f04452', backSteps: 3 },
             ],
             startingPlayer: 'random',
         });

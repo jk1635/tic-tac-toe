@@ -20,7 +20,7 @@ const HeaderContainer = styled.div`
 `;
 
 const Logo = styled.span`
-    color: ${theme.colors.blue};
+    color: ${theme.colors.primary};
     font-size: 1.5rem;
     cursor: pointer;
     user-select: none;

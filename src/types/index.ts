@@ -1,7 +1,9 @@
 import { MutableSnapshot } from 'recoil';
 
+import { playerColorOptions } from 'constants/gameConstants';
+
 type PlayerMark = 'close' | 'circle' | 'change_history' | 'square';
-type PlayerColor = 'red' | 'orange' | 'blue' | 'green';
+type PlayerColor = (typeof playerColorOptions)[number]['value'];
 type StartingPlayer = 'random' | 'Player 1' | 'Player 2';
 type PlayerId = 1 | 2;
 

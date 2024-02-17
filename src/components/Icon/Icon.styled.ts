@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 
 const IconWrapper = styled.div<{ color?: string }>`
-    color: ${({ color }) => (color ? color : 'black')};
+    color: ${({ color, theme }) => (color ? color : theme.colors.black)};
     user-select: none;
     -webkit-user-select: none;
     -webkit-user-drag: none;
