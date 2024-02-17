@@ -6,9 +6,9 @@ import { Header } from 'components/Header';
 import { PlayAction } from 'components/PlayAction';
 import { StatusIndicator } from 'components/StatusIndicator';
 
-const BoardPage: React.FC = () => {
+const BoardPage = () => {
     return (
-        <BasicContainer>
+        <BasicContainer data-testid="game-board">
             <Header />
             <StatusIndicator />
             <GameBoard />

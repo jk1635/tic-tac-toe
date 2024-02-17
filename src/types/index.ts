@@ -1,3 +1,5 @@
+import { MutableSnapshot } from 'recoil';
+
 type PlayerMark = 'close' | 'circle' | 'change_history' | 'square';
 type PlayerColor = 'red' | 'orange' | 'blue' | 'green';
 type StartingPlayer = 'random' | 'Player 1' | 'Player 2';
@@ -49,6 +51,8 @@ interface GameHistory {
     players: Player[];
 }
 
+type RecoilStateSet = (mutableSnapshot: MutableSnapshot) => void;
+
 export type {
     Option,
     PlayerMark,
@@ -61,4 +65,5 @@ export type {
     Board,
     Move,
     GameStatus,
+    RecoilStateSet,
 };

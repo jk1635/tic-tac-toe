@@ -54,6 +54,7 @@ const GameBoard = () => {
                         return (
                             <S.Cell
                                 key={cellIndex}
+                                data-testid={`cell-${rowIndex}-${cellIndex}`}
                                 isLastRow={rowIndex === board.length - 1}
                                 isLastCell={cellIndex === board.length - 1}
                                 onClick={() => handleCellClick(rowIndex, cellIndex)}
