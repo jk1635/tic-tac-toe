@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { StylesConfig } from 'react-select';
 
-import { Option } from '../../types';
+import { Option } from 'types';
 
 const SelectWrapper = styled.div`
     position: relative;

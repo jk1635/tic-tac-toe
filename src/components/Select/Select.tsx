@@ -18,6 +18,7 @@ const SelectOption = ({ label, options, value, onChange }: SelectOptionProps) =>
         <S.SelectWrapper>
             <span>{label}</span>
             <Select
+                isSearchable={false}
                 options={options}
                 value={value}
                 onChange={onChange}
