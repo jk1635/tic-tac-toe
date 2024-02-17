@@ -1,3 +1,5 @@
 import BasicContainer from './BasicContainer';
+import Loading from './Loading';
+import NotFound from './NotFound';
 
-export { BasicContainer };
+export { BasicContainer, NotFound, Loading };
