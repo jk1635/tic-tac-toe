@@ -20,7 +20,7 @@ const StatusWrapper = styled.div`
 `;
 
 const Number = styled.span`
-    font-size: 2rem;
+    font-size: 1.75rem;
     text-align: center;
 `;
 
