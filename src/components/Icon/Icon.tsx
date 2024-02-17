@@ -9,7 +9,7 @@ interface IconProps {
     children: ReactNode;
 }
 
-const Icon: React.FC<IconProps> = ({ size, bold, color, children }) => {
+const Icon = ({ size, bold, color, children }: IconProps) => {
     return (
         <S.IconWrapper color={color}>
             <span

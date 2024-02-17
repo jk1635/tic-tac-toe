@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 
 import useInitializeBoard from 'hooks/useInitializeBoard';
@@ -7,12 +7,16 @@ import { backAbleState } from 'stores/selectors';
 import theme from 'styles/theme';
 import { GameHistory } from 'types';
 
+import { Dialog } from '../Dialog';
 import { FixedBottom } from '../FixedBottom';
 import { Icon } from '../Icon';
 
 import * as S from './PlayAction.styled';
 
 const PlayAction = () => {
+    const [isOpen, setIsOpen] = useState<boolean>(false);
+    const [error, setError] = useState<string>('');
+
     const [gameSettings, setGameSettings] = useRecoilState(gameSettingsState);
     const [gameStatus, setGameStatus] = useRecoilState(gameStatusState);
     const [board, setBoard] = useRecoilState(boardState);
@@ -73,10 +77,16 @@ const PlayAction = () => {
             };
 
             setHistory(prev => [...prev, newGameRecord]);
-            alert('게임 기록이 저장되었습니다.');
+            setError('게임 기록이 저장되었습니다.');
+            setIsOpen(true);
         } else {
-            alert('게임을 완료해주세요.');
+            setError('게임을 완료해주세요.');
+            setIsOpen(true);
         }
+    };
+
+    const handleClose = () => {
+        setIsOpen(false);
     };
 
     return (
@@ -108,6 +118,7 @@ const PlayAction = () => {
                 <S.Text>다시하기</S.Text>
             </S.ActionWrapper>
             <FixedBottom onClick={handleSaveHistory}>Save</FixedBottom>
+            <Dialog text={error} isClose={handleClose} isOpen={isOpen} />
         </S.GameActions>
     );
 };

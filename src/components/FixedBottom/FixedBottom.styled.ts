@@ -4,7 +4,7 @@ const BottomContainer = styled.div`
     position: fixed;
     bottom: 0;
     left: 50%;
-    z-index: 1000;
+    z-index: 500;
     width: 100%;
     min-width: var(--min-width);
     max-width: var(--max-width);

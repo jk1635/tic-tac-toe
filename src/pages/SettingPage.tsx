@@ -1,9 +1,10 @@
 import styled from '@emotion/styled';
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 
 import { BasicContainer } from 'components/Common';
+import Dialog from 'components/Dialog/Dialog';
 import { FixedBottom } from 'components/FixedBottom';
 import { Header } from 'components/Header';
 import { Icon } from 'components/Icon';
@@ -15,6 +16,9 @@ import { Option, PlayerColor, PlayerMark, StartingPlayer } from 'types';
 
 const SettingPage = () => {
     const navigate = useNavigate();
+
+    const [isOpen, setIsOpen] = useState<boolean>(false);
+    const [error, setError] = useState<string>('');
 
     const [gameSettings, setGameSettings] = useRecoilState(gameSettingsState);
 
@@ -123,10 +127,15 @@ const SettingPage = () => {
         const player1 = gameSettings.players[0];
         const player2 = gameSettings.players[1];
         if (player1.color === player2.color && player1.mark === player2.mark) {
-            alert('플레이어 1과 플레이어 2의 마크와 색상이 동일합니다. 구별할 수 있게 바꿔주세요.');
+            setError('플레이어 1과 플레이어 2의 마크와 색상이 동일합니다. 구별할 수 있게 바꿔주세요.');
+            setIsOpen(true);
         } else {
             navigate('/board');
         }
+    };
+
+    const handleClose = () => {
+        setIsOpen(false);
     };
 
     return (
@@ -180,6 +189,7 @@ const SettingPage = () => {
                 onChange={handleStartingPlayerChange}
             />
             <FixedBottom onClick={handleStart}>Start</FixedBottom>
+            <Dialog text={error} isClose={handleClose} isOpen={isOpen} />
         </BasicContainer>
     );
 };
