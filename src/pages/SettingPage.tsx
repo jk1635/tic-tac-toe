@@ -189,6 +189,7 @@ const Clear = styled.div`
     justify-content: flex-end;
     margin-top: -1.5rem;
     padding-bottom: 1rem;
+    cursor: pointer;
 `;
 
 export default SettingPage;

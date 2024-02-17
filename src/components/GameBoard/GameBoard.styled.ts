@@ -17,6 +17,7 @@ const Cell = styled.div<{ isLastCell: boolean; isLastRow: boolean; color?: strin
     height: ${({ boardLength }) => `calc(min(${100 / boardLength}vw, 4rem))`};
     border-bottom: ${({ isLastRow }) => (isLastRow ? 'none' : `1px solid ${theme.colors.gray}`)};
     border-right: ${({ isLastCell }) => (isLastCell ? 'none' : `1px solid ${theme.colors.gray}`)};
+    cursor: pointer;
 `;
 
 export { BoardContainer, Cell };

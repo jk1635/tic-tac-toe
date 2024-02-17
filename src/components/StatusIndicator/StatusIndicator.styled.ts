@@ -13,6 +13,10 @@ const StatusWrapper = styled.div`
     padding: 0.5rem;
     width: 5rem;
     height: 5rem;
+    user-select: none;
+    -webkit-user-select: none;
+    -webkit-user-drag: none;
+    -webkit-touch-callout: none;
 `;
 
 const Number = styled.span`

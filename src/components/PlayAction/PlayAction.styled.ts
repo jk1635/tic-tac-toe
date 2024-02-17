@@ -5,6 +5,10 @@ const GameActions = styled.div`
     justify-content: space-between;
     margin-top: 2rem;
     height: 5rem;
+    user-select: none;
+    -webkit-user-select: none;
+    -webkit-user-drag: none;
+    -webkit-touch-callout: none;
 `;
 
 const ActionWrapper = styled.div`
@@ -31,6 +35,11 @@ const BackStepStatus = styled.span`
 const IconButton = styled.button`
     border: 0;
     background: transparent;
+
+    &:disabled {
+        opacity: 0.26;
+        cursor: not-allowed;
+    }
 `;
 
 const Text = styled.span`
