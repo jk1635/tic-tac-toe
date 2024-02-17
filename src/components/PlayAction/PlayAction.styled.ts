@@ -31,8 +31,6 @@ const BackStepStatus = styled.span`
 const IconButton = styled.button`
     border: 0;
     background: transparent;
-    font-size: 2rem;
-    text-align: center;
 `;
 
 const Text = styled.span`
