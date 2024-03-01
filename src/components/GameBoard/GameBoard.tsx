@@ -1,7 +1,7 @@
 import React from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 
-import { PLAYER_1, PLAYER_2 } from 'constants/gameConstants';
+import { Player1, Player2 } from 'constants/gameConstants';
 import useGameStatus from 'hooks/useGameStatus';
 import { boardState, gameSettingsState, gameStatusState } from 'stores/atoms';
 import { currentPlayerState } from 'stores/selectors';
@@ -39,7 +39,7 @@ const GameBoard = () => {
         setGameStatus(prev => ({
             ...prev,
             moves: [...prev.moves, newMove],
-            currentTurn: prev.currentTurn === PLAYER_1 ? PLAYER_2 : PLAYER_1,
+            currentTurn: prev.currentTurn === Player1 ? Player2 : Player1,
             ...(isWin && { status: 'win', winner: currentPlayer.id }),
             ...(isTie && { status: 'tie' }),
         }));

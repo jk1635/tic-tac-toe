@@ -1,6 +1,6 @@
 import { useRecoilState } from 'recoil';
 
-import { PLAYER_1, PLAYER_2 } from 'constants/gameConstants';
+import { Player1, Player2 } from 'constants/gameConstants';
 import { boardState, gameSettingsState, gameStatusState } from 'stores/atoms';
 import { PlayerId } from 'types';
 
@@ -18,9 +18,9 @@ const useInitializeBoard = () => {
 
         let startingPlayerId: PlayerId;
         if (gameSettings.startingPlayer === 'random') {
-            startingPlayerId = Math.random() < 0.5 ? PLAYER_1 : PLAYER_2;
+            startingPlayerId = Math.random() < 0.5 ? Player1 : Player2;
         } else {
-            startingPlayerId = gameSettings.startingPlayer === 'Player 1' ? PLAYER_1 : PLAYER_2;
+            startingPlayerId = gameSettings.startingPlayer === 'Player 1' ? Player1 : Player2;
         }
 
         const resetPlayers = gameSettings.players.map(player => ({

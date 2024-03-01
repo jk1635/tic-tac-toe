@@ -1,7 +1,7 @@
 import { PlayerId } from 'types';
 
-const PLAYER_1: PlayerId = 1;
-const PLAYER_2: PlayerId = 2;
+const Player1: PlayerId = 1;
+const Player2: PlayerId = 2;
 
 const playerMarkOptions = [
     { value: 'close', label: '엑스' },
@@ -23,4 +23,4 @@ const startingPlayerOptions = [
     { value: 'Player 2', label: 'P2' },
 ];
 
-export { PLAYER_1, PLAYER_2, playerMarkOptions, playerColorOptions, startingPlayerOptions };
+export { Player1, Player2, playerMarkOptions, playerColorOptions, startingPlayerOptions };
