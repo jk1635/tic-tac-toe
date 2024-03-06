@@ -19,10 +19,13 @@ const SettingPage = () => {
 
     const [isOpen, setIsOpen] = useState<boolean>(false);
     const [error, setError] = useState<string>('');
+    const [animate, setAnimate] = useState(false);
 
     const [gameSettings, setGameSettings] = useRecoilState(gameSettingsState);
 
     const handleResetSettings = () => {
+        setAnimate(true);
+
         setGameSettings({
             boardSize: [3, 3],
             winCondition: 3,
@@ -32,6 +35,10 @@ const SettingPage = () => {
             ],
             startingPlayer: 'random',
         });
+
+        setTimeout(() => {
+            setAnimate(false);
+        }, 1000);
     };
 
     const boardSizeOptions: Option[] = Array.from({ length: 8 }, (_, i) => ({
@@ -142,7 +149,7 @@ const SettingPage = () => {
         <BasicContainer>
             <Header />
             <Clear onClick={handleResetSettings}>
-                <Icon size={1.5} color={theme.colors.gray}>
+                <Icon size={1.5} color={theme.colors.gray} animate={animate}>
                     restart_alt
                 </Icon>
             </Clear>
