@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useRecoilValue } from 'recoil';
+import { useRecoilState } from 'recoil';
 
 import { Button } from 'components/Button';
 import { BasicContainer } from 'components/Common';
@@ -13,7 +13,7 @@ const HomePage = () => {
     const [isOpen, setIsOpen] = useState<boolean>(false);
     const [error, setError] = useState<string>('');
 
-    const history = useRecoilValue(historyState);
+    const [history] = useRecoilState(historyState);
 
     const handleHistory = () => {
         if (history.length === 0) {

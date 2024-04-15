@@ -14,7 +14,7 @@ import * as S from './GameBoard.styled';
 const GameBoard = () => {
     const [gameStatus, setGameStatus] = useRecoilState(gameStatusState);
     const [board, setBoard] = useRecoilState(boardState);
-    const gameSettings = useRecoilValue(gameSettingsState);
+    const [gameSettings] = useRecoilState(gameSettingsState);
     const currentPlayer = useRecoilValue(currentPlayerState);
 
     const { updateBoard, checkWin, checkTie } = useGameStatus();

@@ -1,5 +1,5 @@
 import React from 'react';
-import { useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 
 import { gameSettingsState, gameStatusState } from 'stores/atoms';
 import { currentPlayerState } from 'stores/selectors';
@@ -9,8 +9,8 @@ import { Icon } from '../Icon';
 import * as S from './StatusIndicator.styled';
 
 const StatusIndicator = () => {
-    const gameSettings = useRecoilValue(gameSettingsState);
-    const gameStatus = useRecoilValue(gameStatusState);
+    const [gameSettings] = useRecoilState(gameSettingsState);
+    const [gameStatus] = useRecoilState(gameStatusState);
     const currentPlayer = useRecoilValue(currentPlayerState);
 
     const winnerPlayer = gameSettings.players.find(player => player.id === gameStatus.winner);

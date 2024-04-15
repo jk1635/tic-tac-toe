@@ -21,7 +21,6 @@ const PlayAction = () => {
     const [gameStatus, setGameStatus] = useRecoilState(gameStatusState);
     const [board, setBoard] = useRecoilState(boardState);
     const [, setHistory] = useRecoilState(historyState);
-
     const isBackSteps = useRecoilValue(backAbleState);
 
     const { initializeBoard } = useInitializeBoard();
