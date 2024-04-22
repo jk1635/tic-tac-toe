@@ -11,9 +11,8 @@ const useInitializeBoard = () => {
 
     const initializeBoard = () => {
         const boardSize = gameSettings.boardSize[0];
-        const newBoard = Array(boardSize)
-            .fill(null)
-            .map(() => Array(boardSize).fill({ playerId: null }));
+        const newBoard = Array.from({ length: boardSize }, () => Array(boardSize).fill({ playerId: null }));
+
         setBoard(newBoard);
 
         let startingPlayerId: PlayerId;
